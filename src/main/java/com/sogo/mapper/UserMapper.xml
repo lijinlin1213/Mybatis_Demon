@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sogo.dao.UserDao">
+    <resultMap type="User" id="resultUserMap">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="passwd" column="passwd" />
+        <result property="cnname" column="cnname" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="im" column="im" />
+        <result property="qq" column="qq" />
+        <result property="role" column="role" />
+        <result property="creator" column="creator" />
+        <result property="created" column="created" />
+        <collection property="posts" ofType="Post"  column="userid">
+            <id property="id" column="post_id" javaType="int" jdbcType="INTEGER"/>
+            <result property="title" column="title" javaType="string" jdbcType="VARCHAR"/>
+            <result property="content" column="content" javaType="string" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="User" >
+        INSERT INTO user (id,name,passwd,cnname,email,phone,im,qq,role,creator,created)VALUES (#{id},#{name},#{passwd}
+        ,#{cnname},#{email},#{phone},#{im},#{qq},#{role},#{creator},#{created})
+    </insert>
+    <select id="getUser" resultMap="resultUserMap" parameterType="int">
+        SELECT u.*,p.*
+        FROM user u, post p
+        WHERE u.id=p.userid AND id=#{id}
+    </select>
+   <!-- <select id="getUser" parameterType="int" resultType="User">
+        SELECT * FROM user WHERE ID=#{id}
+    </select>-->
+
+    <update id="updateUser" parameterType="User">
+        UPDATE USER SET passwd=#{passwd} WHERE ID=#{id}
+    </update>
+
+    <select id="getUserList" resultType="User">
+        SELECT * FROM USER
+    </select>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM USER WHERE id = #{id}
+    </delete>
+</mapper>
