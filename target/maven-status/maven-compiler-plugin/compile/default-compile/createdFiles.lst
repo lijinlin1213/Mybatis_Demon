@@ -1,5 +1,0 @@
-com\sogo\model\User.class
-com\sogo\service\UserService.class
-com\sogo\dao\UserDao.class
-com\sogo\dao\impl\UserDaoImpl.class
-com\sogo\util\MybatisUtil.class
